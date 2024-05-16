@@ -21,3 +21,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "Mechta Test app"
 include(":app")
+include(":api")
+include(":database")
+include(":features:catalog-main")
+include(":catalog-data")
+include(":core")
+include(":features:product")
+include(":product-data")

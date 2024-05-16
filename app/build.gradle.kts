@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.kotlinXSerialization)
+
 }
 
 android {
@@ -18,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String","API_URL","\"https://www.mechta.kz/api/v2/\"")
     }
 
     buildTypes {
@@ -37,10 +42,11 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -59,11 +65,15 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.kotlinx.serialization.josn)
+    implementation(libs.navigaiton.compose)
+    kapt(libs.dagger.hilt.compiler)
+
+    implementation(project(":api"))
+    implementation(project(":catalog-data"))
+    implementation(project(":database"))
+    implementation(project(":core"))
+    implementation(project(":features:catalog-main"))
+    implementation(project(":features:product"))
 }
